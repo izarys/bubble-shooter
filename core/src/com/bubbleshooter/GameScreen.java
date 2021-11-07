@@ -1,75 +1,45 @@
 package com.bubbleshooter;
 
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-
-public class GameScreen implements Screen {
-
-    // screen
-    private Camera camera;
-    private Viewport viewport;
-
-    // graphics
-    private SpriteBatch batch;
-    private Texture background;
-
-
-    // world parameters
-    private static final int SCREEN_WIDTH = 1800;
-    private static final int SCREEN_HEIGHT = 900;
+public class GameScreen {
+    ScreenState screenState;
 
     GameScreen() {
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
-
-        background = new Texture("menu_background.png");
-
-        batch = new SpriteBatch();
+        screenState = new MenuScreenState(this);
     }
 
+    public void setScreenState(ScreenState screenState) {
+        this.screenState = screenState;
+    }
 
-    @Override
+    public ScreenState getScreenState() {
+        return screenState;
+    }
+
     public void show() {
-
+        screenState.show();
     }
 
-    @Override
     public void render(float delta) {
-        batch.begin();
-
-        batch.draw(background, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-        batch.end();
+        screenState.render(delta);
     }
 
-    @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
-        batch.setProjectionMatrix(camera.combined);
+        screenState.resize(width, height);
     }
 
-    @Override
     public void pause() {
-
+        screenState.pause();
     }
 
-    @Override
     public void resume() {
-
+        screenState.resume();
     }
 
-    @Override
     public void hide() {
-
+        screenState.hide();
     }
 
-    @Override
     public void dispose() {
-
+        screenState.dispose();
     }
 }

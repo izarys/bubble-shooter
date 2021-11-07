@@ -8,7 +8,7 @@ public class BubbleShooterGame extends Game {
 	@Override
 	public void create() {
 		gameScreen = new GameScreen();
-		setScreen(gameScreen);
+		setScreen(gameScreen.getScreenState());
 	}
 
 	@Override
@@ -19,6 +19,7 @@ public class BubbleShooterGame extends Game {
 	@Override
 	public void render() {
 		super.render();
+		setScreen(gameScreen.getScreenState());
 	}
 
 	@Override
