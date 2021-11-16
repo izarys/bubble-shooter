@@ -1,9 +1,8 @@
 package com.bubbleshooter;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class GameConstants {
     // world parameters
@@ -12,30 +11,29 @@ public class GameConstants {
 
     // textures
     public static final Texture BACKGROUND = new Texture("menu_background.png");
-    public static final Texture NEW_GAME_OFF_TEXTURE = new Texture("new_game_off.png");
-    public static final Texture NEW_GAME_ON_TEXTURE = new Texture("new_game_on.png");
-    public static final Texture SETTINGS_OFF_TEXTURE = new Texture("settings_off.png");
-    public static final Texture SETTINGS_ON_TEXTURE = new Texture("settings_on.png");
-    public static final Texture EXIT_OFF_TEXTURE = new Texture("exit_off.png");
-    public static final Texture EXIT_ON_TEXTURE = new Texture("exit_on.png");
-
-    // drawables
-    public static final Drawable NEW_GAME_OFF_DRAWABLE = new TextureRegionDrawable(NEW_GAME_OFF_TEXTURE);
-    public static final Drawable NEW_GAME_ON_DRAWABLE = new TextureRegionDrawable(NEW_GAME_ON_TEXTURE);
-    public static final Drawable SETTINGS_OFF_DRAWABLE = new TextureRegionDrawable(SETTINGS_OFF_TEXTURE);
-    public static final Drawable SETTINGS_ON_DRAWABLE = new TextureRegionDrawable(SETTINGS_ON_TEXTURE);
-    public static final Drawable EXIT_OFF_DRAWABLE = new TextureRegionDrawable(EXIT_OFF_TEXTURE);
-    public static final Drawable EXIT_ON_DRAWABLE = new TextureRegionDrawable(EXIT_ON_TEXTURE);
-
-    // styles
-    public static final Button.ButtonStyle NEW_GAME_OFF_STYLE = new Button.ButtonStyle(NEW_GAME_OFF_DRAWABLE, NEW_GAME_OFF_DRAWABLE, NEW_GAME_ON_DRAWABLE);
-    public static final Button.ButtonStyle SETTINGS_STYLE = new Button.ButtonStyle(SETTINGS_OFF_DRAWABLE, SETTINGS_OFF_DRAWABLE, SETTINGS_ON_DRAWABLE);
-    public static final Button.ButtonStyle EXIT_STYLE = new Button.ButtonStyle(EXIT_OFF_DRAWABLE, EXIT_OFF_DRAWABLE, EXIT_ON_DRAWABLE);
 
     // buttons variables
-    public static final int BUTTON_WIDTH = 600;
-    public static final int BUTTON_HEIGHT = 150;
-    public static final int BUTTON_POSITION_WIDTH = (SCREEN_WIDTH - BUTTON_WIDTH) / 2;
-    public static final int BUTTON_POSITION_HEIGHT = (SCREEN_HEIGHT - BUTTON_HEIGHT) / 2;
     public static final int MAIN_MENU_BUTTON_COUNT = 3;
+    public static final int SETTINGS_BUTTON_COUNT = 3;
+    public static final String NEW_GAME = "new game";
+    public static final String SETTINGS = "settings";
+    public static final String EXIT = "exit";
+    public static final String SOUND = "sound: ";
+    public static final String ON = "on";
+    public static final String OR = " / ";
+    public static final String OFF = "off";
+    public static final String CONTROLS = "controls: ";
+    public static final String ARROWS = "arrows";
+    public static final String WASD = "wasd";
+    public static final String BACK = "back";
+    public static final String[] MAIN_MENU_BUTTONS = {NEW_GAME, SETTINGS, EXIT};
+    public static final String[][] SETTINGS_BUTTONS = {{SOUND, ON, OR, OFF}, {CONTROLS, ARROWS, OR, WASD}, {BACK}};
+    public static final int MAIN_MENU_WIDTH_OFFSET = 320;
+    public static final int MAIN_MENU_HEIGHT_OFFSET = 100;
+
+    // font
+    public static final FileHandle FONT_FILE = Gdx.files.internal("pixel_font.ttf");
+    public static final int MENU_FONT_SIZE = 64;
+    public static final int SETTINGS_FONT_SIZE = 32;
+
 }

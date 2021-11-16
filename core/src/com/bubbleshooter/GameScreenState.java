@@ -1,9 +1,29 @@
 package com.bubbleshooter;
 
-public class GameScreenState implements ScreenState {
+public class GameScreenState extends ScreenSetup implements ScreenState {
     GameScreen gameScreen;
     GameScreenState(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
+    }
+
+    @Override
+    public void setupFont() {
+
+    }
+
+    @Override
+    public void setupButtons() {
+
+    }
+
+    @Override
+    public void actOnKeyUp(int keycode) {
+
+    }
+
+    @Override
+    public void setupStage() {
+
     }
 
     @Override

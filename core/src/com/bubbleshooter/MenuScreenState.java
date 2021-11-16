@@ -2,95 +2,78 @@ package com.bubbleshooter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
-
-public class MenuScreenState implements ScreenState {
-    GameScreen gameScreen;
-    // buttons
-    Button newGameButton;
-    Button settingsButton;
-    Button exitButton;
-    Button[] buttons;
-    int buttonsIdx;
-
-    // stage
+public class MenuScreenState extends ScreenSetup implements ScreenState {
     Stage stage;
+    GameScreen gameScreen;
+    BitmapFont font;
+    Color[] buttonsColors;
+    int buttonsIdx;
 
     MenuScreenState(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
-
-        stage = new Stage(viewport);
-
-        setupButtons();
-        setupInputListener();
-
-        buttonsIdx = 0;
-
+        setup();
     }
 
-    private void setupButtons() {
+    @Override
+    public void setupFont() {
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(GameConstants.FONT_FILE);
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = GameConstants.MENU_FONT_SIZE;
+        font = generator.generateFont(parameter);
+        generator.dispose();
+    }
+
+    @Override
+    public void setupStage() {
+        stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
+    }
 
-        newGameButton = new Button(GameConstants.NEW_GAME_OFF_STYLE);
-        settingsButton = new Button(GameConstants.SETTINGS_STYLE);
-        exitButton = new Button(GameConstants.EXIT_STYLE);
-        buttons = new Button[] {newGameButton, settingsButton, exitButton};
-
-        newGameButton.setSize(GameConstants.BUTTON_WIDTH, GameConstants.BUTTON_HEIGHT);
-        settingsButton.setSize(GameConstants.BUTTON_WIDTH, GameConstants.BUTTON_HEIGHT);
-        exitButton.setSize(GameConstants.BUTTON_WIDTH, GameConstants.BUTTON_HEIGHT);
-
-        newGameButton.setPosition(GameConstants.BUTTON_POSITION_WIDTH, GameConstants.BUTTON_POSITION_HEIGHT + GameConstants.BUTTON_HEIGHT);
-        settingsButton.setPosition(GameConstants.BUTTON_POSITION_WIDTH, GameConstants.BUTTON_POSITION_HEIGHT);
-        exitButton.setPosition(GameConstants.BUTTON_POSITION_WIDTH, GameConstants.BUTTON_POSITION_HEIGHT - GameConstants.BUTTON_HEIGHT);
-
-        newGameButton.setChecked(true);
-
-        stage.addActor(newGameButton);
-        stage.addActor(settingsButton);
-        stage.addActor(exitButton);
+    @Override
+    public void setupButtons() {
+        buttonsColors = new Color[]{Color.WHITE, Color.BLACK, Color.BLACK};
+        buttonsIdx = 0;
     }
 
     private void moveButtonIndex(int idx) {
-        buttons[buttonsIdx].setChecked(false);
+        buttonsColors[buttonsIdx] = Color.BLACK;
         buttonsIdx = idx;
-        buttons[buttonsIdx].setChecked(true);
+        buttonsColors[buttonsIdx] = Color.WHITE;
     }
 
-    private void setupInputListener() {
-
-        InputListener inputListener = new InputListener() {
-            @Override
-            public boolean keyUp(InputEvent event, int keycode) {
-                switch (keycode) {
-                    case Input.Keys.ENTER: {
-                        Button currentCheckedButton = buttons[buttonsIdx];
-                        if (currentCheckedButton.equals(newGameButton)) {
-                            gameScreen.setScreenState(new GameScreenState(gameScreen));
-                        } else if (currentCheckedButton.equals(settingsButton)) {
-                            gameScreen.setScreenState(new SettingsScreenState(gameScreen));
-                        } else if (currentCheckedButton.equals(exitButton)) {
-                            Gdx.app.exit();
-                        }
+    @Override
+    public void actOnKeyUp(int keycode) {
+        switch (keycode) {
+            case Input.Keys.ENTER: {
+                String currentButton = GameConstants.MAIN_MENU_BUTTONS[buttonsIdx];
+                switch (currentButton) {
+                    case GameConstants.NEW_GAME:
+                        gameScreen.setScreenState(gameScreen.getGameScreenState());
                         break;
-                    }
-                    case Input.Keys.DOWN: {
-                        moveButtonIndex((buttonsIdx + 1) % GameConstants.MAIN_MENU_BUTTON_COUNT);
+                    case GameConstants.SETTINGS:
+                        gameScreen.setScreenState(gameScreen.getSettingsScreenState());
                         break;
-                    }
-                    case Input.Keys.UP: {
-                        moveButtonIndex((buttonsIdx + (GameConstants.MAIN_MENU_BUTTON_COUNT - 1)) % GameConstants.MAIN_MENU_BUTTON_COUNT);
+                    case GameConstants.EXIT:
+                        Gdx.app.exit();
                         break;
-                    }
                 }
-                return true;
+                break;
             }
-        };
-        stage.addListener(inputListener);
+            case Input.Keys.DOWN: {
+                moveButtonIndex((buttonsIdx + 1) % GameConstants.MAIN_MENU_BUTTON_COUNT);
+                break;
+            }
+            case Input.Keys.UP: {
+                moveButtonIndex((buttonsIdx + (GameConstants.MAIN_MENU_BUTTON_COUNT - 1)) % GameConstants.MAIN_MENU_BUTTON_COUNT);
+                break;
+            }
+        }
     }
 
     @Override
@@ -104,6 +87,14 @@ public class MenuScreenState implements ScreenState {
 
         batch.begin();
         batch.draw(GameConstants.BACKGROUND, 0,0);
+        for (int i = 0; i < GameConstants.MAIN_MENU_BUTTON_COUNT; i++) {
+            font.setColor(buttonsColors[i]);
+            GlyphLayout layout = new GlyphLayout(font, GameConstants.MAIN_MENU_BUTTONS[i]);
+            float x = GameConstants.MAIN_MENU_WIDTH_OFFSET - layout.width / 2;
+            float y = Gdx.graphics.getHeight() / 2f  - layout.height * 2 - GameConstants.MAIN_MENU_HEIGHT_OFFSET * i;
+            font.draw(batch, layout, x, y);
+        }
+
         batch.end();
 
         stage.draw();

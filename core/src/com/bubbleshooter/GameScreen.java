@@ -1,10 +1,39 @@
 package com.bubbleshooter;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+
 public class GameScreen {
-    ScreenState screenState;
+    private final InputListener inputListener = new InputListener() {
+        @Override
+        public boolean keyUp(InputEvent event, int keycode) {
+            screenState.actOnKeyUp(keycode);
+            return true;
+        }
+    };
+    private final ScreenState menuScreenState = new MenuScreenState(this);
+    private final ScreenState settingsScreenState = new SettingsScreenState(this);
+    private final ScreenState gameScreenState = new GameScreenState(this);
+    private ScreenState screenState;
 
     GameScreen() {
-        screenState = new MenuScreenState(this);
+        screenState = menuScreenState;
+    }
+
+    public InputListener getInputListener() {
+        return inputListener;
+    }
+
+    public ScreenState getMenuScreenState() {
+        return menuScreenState;
+    }
+
+    public ScreenState getSettingsScreenState() {
+        return settingsScreenState;
+    }
+
+    public ScreenState getGameScreenState() {
+        return gameScreenState;
     }
 
     public void setScreenState(ScreenState screenState) {

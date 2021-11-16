@@ -22,4 +22,5 @@ public interface ScreenState extends Screen {
     void resume();
     void hide();
     void dispose();
+    void actOnKeyUp(int keycode);
 }
