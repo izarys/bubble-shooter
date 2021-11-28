@@ -35,5 +35,6 @@ public class GameConstants {
     public static final FileHandle FONT_FILE = Gdx.files.internal("pixel_font.ttf");
     public static final int MENU_FONT_SIZE = 64;
     public static final int SETTINGS_FONT_SIZE = 32;
+    public static final int GAME_FONT_SIZE = 16;
 
 }
