@@ -12,7 +12,7 @@ public class RowGenerator {
 
     public void generate() {
         List<Bubble> newRow = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 21; i++) {
             newRow.add(new BubbleImpl());
         }
         graph.add(newRow);

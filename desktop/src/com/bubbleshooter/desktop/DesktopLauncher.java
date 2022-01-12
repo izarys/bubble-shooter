@@ -10,8 +10,9 @@ public class DesktopLauncher {
 
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setWindowSizeLimits(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
-
+		config.setWindowedMode(SCREEN_WIDTH, SCREEN_HEIGHT);
+		config.setResizable(false);
+		config.setTitle("Bubble Shooter");
 		new Lwjgl3Application(new BubbleShooterGame(), config);
 	}
 }

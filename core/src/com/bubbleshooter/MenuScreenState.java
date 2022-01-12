@@ -96,8 +96,8 @@ public class MenuScreenState extends ScreenSetup implements ScreenState {
         for (int i = 0; i < GameConstants.MAIN_MENU_BUTTON_COUNT; i++) {
             font.setColor(buttonsColors[i]);
             GlyphLayout layout = new GlyphLayout(font, GameConstants.MAIN_MENU_BUTTONS[i]);
-            float x = GameConstants.MAIN_MENU_WIDTH_OFFSET - layout.width / 2;
-            float y = Gdx.graphics.getHeight() / 2f  - layout.height * 2 - GameConstants.MAIN_MENU_HEIGHT_OFFSET * i;
+            float x = (GameConstants.SCREEN_WIDTH - layout.width) / 2;
+            float y = GameConstants.BUTTONS_HEIGHT - GameConstants.MAIN_MENU_HEIGHT_OFFSET * i;
             font.draw(batch, layout, x, y);
         }
 

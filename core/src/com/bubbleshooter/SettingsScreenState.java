@@ -66,7 +66,7 @@ public class SettingsScreenState extends ScreenSetup implements ScreenState {
                 }
                 break;
             }
-            case Input.Keys.DOWN: {System.out.println("Aa");
+            case Input.Keys.DOWN: {
                 moveButtonIndexUpDown((buttonsIdxUpDown + 1) % GameConstants.SETTINGS_BUTTON_COUNT);
                 break;
             }
@@ -124,8 +124,8 @@ public class SettingsScreenState extends ScreenSetup implements ScreenState {
             for (int j = 0; j < GameConstants.SETTINGS_BUTTONS[i].length; j++) {
                 font.setColor(buttonsColors[i][j]);
                 GlyphLayout layout = new GlyphLayout(font, GameConstants.SETTINGS_BUTTONS[i][j]);
-                float x = 320 - getLayoutOffset(i, j);
-                float y = 320 - 64 * i;
+                float x = GameConstants.SCREEN_WIDTH / 2f - getLayoutOffset(i, j);
+                float y = GameConstants.BUTTONS_HEIGHT - GameConstants.SETTINGS_FONT_SIZE * i;
                 font.draw(batch, layout, x, y);
             }
         }

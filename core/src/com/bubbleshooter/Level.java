@@ -1,22 +1,42 @@
 package com.bubbleshooter;
 
+import java.util.List;
+
 public class Level {
+    private static final Level instance = new Level();
     private int level;
     private final Graph graph;
+    private final NextQueue queue;
+    private final Shooter shooter;
 
-    public Level() {
+    private Level() {
         graph = new Graph();
+        queue = new NextQueue();
+        shooter = new Shooter();
+        level = 1;
+    }
+
+    public static Level getInstance() {
+        return instance;
+    }
+
+    public Bubble[] getQueue() {
+        return queue.getQueue();
     }
 
     public int getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void increaseLevel() {
+        level++;
     }
 
-    public Graph getGraph() {
-        return graph;
+    public Shooter getShooter() {
+        return shooter;
+    }
+
+    public List<List<Bubble>> getGraph() {
+        return graph.getGraph();
     }
 }
