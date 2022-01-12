@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.nio.CharBuffer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class GameConstants {
     // world parameters
     public final static int SCREEN_WIDTH = 1800;
@@ -12,6 +17,9 @@ public class GameConstants {
     // textures
     public static final Texture BACKGROUND = new Texture("menu_background.png");
     public static final Texture BUBBLE_RED = new Texture("bubble_red.png");
+    public static final Texture BUBBLE_BLUE = new Texture("bubble_blue.png");
+    public static final Texture BUBBLE_YELLOW = new Texture("bubble_yellow.png");
+    public static final Texture BUBBLE_GREEN = new Texture("bubble_green.png");
 
     // buttons variables
     public static final int MAIN_MENU_BUTTON_COUNT = 3;
@@ -51,5 +59,18 @@ public class GameConstants {
     public static final int MENU_FONT_SIZE = 128;
     public static final int SETTINGS_FONT_SIZE = 100;
     public static final int GAME_FONT_SIZE = 32;
+
+    // bubbles
+    public static final Color[] BUBBLE_COLORS = {Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW};
+    public static final Map<Color, Texture> BUBBLE_TEXTURE = new HashMap<Color, Texture>() {
+        {
+            put(Color.RED, BUBBLE_RED);
+            put(Color.BLUE, BUBBLE_BLUE);
+            put(Color.YELLOW, BUBBLE_YELLOW);
+            put(Color.GREEN, BUBBLE_GREEN);
+        }
+    };
+    public static final int NORMAL_COLORS = 4;
+    public static final int BUBBLE_SIZE = 64;
 
 }

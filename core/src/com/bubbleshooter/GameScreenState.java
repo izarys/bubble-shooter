@@ -81,11 +81,18 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
 
         List<List<Bubble>> graph = Level.getInstance().getGraph();
 
-        for (int i = 0; i < graph.size(); i++) {
-            for (int j = 0; j < graph.get(i).size(); j++) {
-                batch.draw(GameConstants.BUBBLE_RED, GameConstants.BIG_FRAME_X + j * 64, GameConstants.FRAME_HEIGHT + GameConstants.FRAME_Y - 64 - i * 64);
+        for (List<Bubble> row : graph) {
+            for (Bubble bubble : row) {
+                batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()), bubble.getPosition().getX(), bubble.getPosition().getY());
             }
         }
+
+
+//        for (int i = 0; i < graph.size(); i++) {
+//            for (int j = 0; j < graph.get(i).size(); j++) {
+//                batch.draw(GameConstants.BUBBLE_RED, GameConstants.BIG_FRAME_X + j * 64, GameConstants.FRAME_HEIGHT + GameConstants.FRAME_Y - 64 - i * 64);
+//            }
+//        }
 
         Bubble[] nextBubbles = Level.getInstance().getQueue();
 

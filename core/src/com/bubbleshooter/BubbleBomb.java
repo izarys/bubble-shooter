@@ -1,13 +1,24 @@
 package com.bubbleshooter;
 
-public class BubbleBomb extends BubbleDecorator {
-    public BubbleBomb(Bubble bubble) {
-        super(bubble);
-    }
+public class BubbleBomb implements Bubble {
 
     @Override
     public void destroy() {
-        super.destroy();
+
+    }
+
+    @Override
+    public Color getColor() {
+        return null;
+    }
+
+    @Override
+    public Position getPosition() {
+        return null;
+    }
+
+    @Override
+    public void move(int deltaX, int deltaY) {
 
     }
 }

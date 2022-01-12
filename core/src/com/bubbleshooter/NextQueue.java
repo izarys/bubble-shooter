@@ -3,15 +3,17 @@ package com.bubbleshooter;
 
 public class NextQueue {
     Bubble[] queue = new Bubble[3];
+    BubbleFactory bubbleFactory = new BubbleFactory();
 
     public NextQueue() {
         for (int i = 0; i < 3; i++) {
-            queue[i] = generateRandomBubble();
+            Position position = new Position(1500, 500 - i * 80);
+            queue[i] = generateRandomBubble(position);
         }
     }
 
-    public Bubble generateRandomBubble() {
-        return new BubbleImpl();
+    public Bubble generateRandomBubble(Position position) {
+        return bubbleFactory.getBubble(position);
     }
 
     public Bubble[] getQueue() {
@@ -22,7 +24,7 @@ public class NextQueue {
         Bubble front = queue[2];
         queue[2] = queue[1];
         queue[1] = queue[0];
-        queue[0] = generateRandomBubble();
+        queue[0] = generateRandomBubble(new Position(1500, 500));
         return front;
     }
 
