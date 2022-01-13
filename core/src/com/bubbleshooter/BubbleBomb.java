@@ -2,6 +2,8 @@ package com.bubbleshooter;
 
 public class BubbleBomb implements Bubble {
 
+    private Position position;
+
     @Override
     public void destroy() {
 
@@ -18,7 +20,12 @@ public class BubbleBomb implements Bubble {
     }
 
     @Override
-    public void move(int deltaX, int deltaY) {
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    @Override
+    public void move(float deltaX, float deltaY) {
 
     }
 }

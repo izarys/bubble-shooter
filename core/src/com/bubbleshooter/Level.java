@@ -20,8 +20,8 @@ public class Level {
         return instance;
     }
 
-    public Bubble[] getQueue() {
-        return queue.getQueue();
+    public NextQueue getQueue() {
+        return queue;
     }
 
     public int getLevel() {

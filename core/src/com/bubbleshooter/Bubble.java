@@ -4,5 +4,6 @@ public interface Bubble {
     void destroy();
     Color getColor();
     Position getPosition();
-    void move(int deltaX, int deltaY);
+    void setPosition(Position position);
+    void move(float deltaX, float deltaY);
 }

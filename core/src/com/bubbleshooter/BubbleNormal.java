@@ -2,7 +2,7 @@ package com.bubbleshooter;
 
 public class BubbleNormal implements Bubble {
     private final Color color;
-    private final Position position;
+    private Position position;
 
     BubbleNormal(Position position) {
         color = GameConstants.BUBBLE_COLORS[(int)(Math.random()*100 % GameConstants.NORMAL_COLORS)];
@@ -25,7 +25,12 @@ public class BubbleNormal implements Bubble {
     }
 
     @Override
-    public void move(int deltaX, int deltaY) {
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    @Override
+    public void move(float deltaX, float deltaY) {
         position.setX(position.getX() + deltaX);
         position.setY(position.getY() + deltaY);
     }

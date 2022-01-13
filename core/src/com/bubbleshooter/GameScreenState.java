@@ -87,30 +87,31 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
             }
         }
 
+        Bubble[] nextBubbles = Level.getInstance().getQueue().getQueue();
 
-//        for (int i = 0; i < graph.size(); i++) {
-//            for (int j = 0; j < graph.get(i).size(); j++) {
-//                batch.draw(GameConstants.BUBBLE_RED, GameConstants.BIG_FRAME_X + j * 64, GameConstants.FRAME_HEIGHT + GameConstants.FRAME_Y - 64 - i * 64);
-//            }
-//        }
-
-        Bubble[] nextBubbles = Level.getInstance().getQueue();
-
-        for (int i = 0; i < nextBubbles.length; i++) {
-            batch.draw(GameConstants.BUBBLE_RED, 1500, 500 - i * 80);
+        for (Bubble bubble : nextBubbles) {
+            batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()), bubble.getPosition().getX(), bubble.getPosition().getY());
         }
 
-        batch.draw(GameConstants.BUBBLE_RED, Level.getInstance().getShooter().getX(), Level.getInstance().getShooter().getY()); // shooter
+        Bubble shooterBubble = Level.getInstance().getShooter().getBubble();
+        batch.draw(GameConstants.BUBBLE_TEXTURE.get(shooterBubble.getColor()), shooterBubble.getPosition().getX(), shooterBubble.getPosition().getY());
 
 
 
         batch.end();
 
+        float r = GameConstants.AIM_HELPER_RADIUS;
+        float angle = Level.getInstance().getShooter().getAngle();
+        float x1 = GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f;
+        float y1 = GameConstants.FRAME_Y + GameConstants.BUBBLE_SIZE / 2f;
+        float x2 = (x1 + (float) Math.cos(angle) * r);
+        float y2 = (y1 + (float) Math.sin(angle) * r);
+
         ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(Color.WHITE);
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rectLine(GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f, GameConstants.FRAME_Y + 32, GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f + Level.getInstance().getShooter().getTarget() * 100, 250,1);
+        shapeRenderer.rectLine(x1, y1, x2, y2,1);
         shapeRenderer.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);

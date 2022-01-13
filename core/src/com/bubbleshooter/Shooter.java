@@ -7,14 +7,25 @@ enum State {
 };
 
 public class Shooter {
-    private float target = 0;
-    Bubble bubble;
-    State state = State.FREE;
-    private float x,y;
+    private int angle;
+    private Bubble bubble;
+    private State state;
+    private Position position = new Position(GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f - GameConstants.BUBBLE_SIZE / 2f, GameConstants.FRAME_Y);;
 
     public Shooter() {
-        x = GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f - 32;
-        y = GameConstants.FRAME_Y;
+        angle = 90;
+        state = State.FREE;
+        bubble = new BubbleFactory().getBubble(position);
+    }
+
+    private void generateBubble() {
+        position = new Position(GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f - GameConstants.BUBBLE_SIZE / 2f, GameConstants.FRAME_Y);
+        bubble = Level.getInstance().getQueue().getFront();
+        bubble.setPosition(position);
+    }
+
+    public Bubble getBubble() {
+        return bubble;
     }
 
     public void shoot() {
@@ -22,18 +33,22 @@ public class Shooter {
     }
 
     public void update() {
-        if (state.equals(State.SHOOTING)) {
-            x += target;
-            y += 10;
-        }
         if (collisionDetected()) {
 
         }
-        if (x < 0 || x > 1800 || y > 900) {
-            x = GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f - 32;
-            y = GameConstants.FRAME_Y;
+        else if (frameCollisionDetected()) {
             state = State.FREE;
+            generateBubble();
+        } else if (state.equals(State.SHOOTING)) {
+            position.setX(position.getX() + (float) Math.cos(getAngle())*10);
+            position.setY(position.getY() + (float) Math.sin(getAngle())*10);
         }
+    }
+
+    private boolean frameCollisionDetected() {
+        return position.getX() < GameConstants.BIG_FRAME_X
+                || position.getX() > GameConstants.BIG_FRAME_WIDTH - GameConstants.BIG_FRAME_X
+                || position.getY() > GameConstants.FRAME_HEIGHT;
     }
 
     private boolean collisionDetected() {
@@ -44,23 +59,19 @@ public class Shooter {
         return false;
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
     public void moveLeft() {
-        target--;
+        if (angle < GameConstants.MAX_ANGLE) {
+            angle++;
+        }
     }
 
     public void moveRight() {
-        target++;
+        if (angle > GameConstants.MIN_ANGLE) {
+            angle--;
+        }
     }
 
-    public float getTarget() {
-        return target;
+    public float getAngle() {
+        return (float) Math.toRadians(angle);
     }
 }

@@ -20,11 +20,19 @@ public class NextQueue {
         return queue;
     }
 
+    private void moveBubbles() {
+        for (int i = 1; i < 3; i++) {
+            Bubble bubble = queue[i];
+            bubble.move(0, -80);
+        }
+    }
+
     public Bubble getFront() {
         Bubble front = queue[2];
         queue[2] = queue[1];
         queue[1] = queue[0];
         queue[0] = generateRandomBubble(new Position(1500, 500));
+        moveBubbles();
         return front;
     }
 

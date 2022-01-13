@@ -73,4 +73,9 @@ public class GameConstants {
     public static final int NORMAL_COLORS = 4;
     public static final int BUBBLE_SIZE = 64;
 
+    // shooter
+    public static final int AIM_HELPER_RADIUS = 256;
+    public static final float MIN_ANGLE = 1;
+    public static final float MAX_ANGLE = 179;
+
 }
