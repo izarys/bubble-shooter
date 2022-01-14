@@ -1,7 +1,5 @@
 package com.bubbleshooter;
 
-import java.util.List;
-
 enum State {
     FREE, SHOOTING
 };
@@ -19,6 +17,7 @@ public class Shooter {
     }
 
     private void generateBubble() {
+        angle = 90;
         position = new Position(GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f - GameConstants.BUBBLE_SIZE / 2f, GameConstants.FRAME_Y);
         bubble = Level.getInstance().getQueue().getFront();
         bubble.setPosition(position);
@@ -33,41 +32,29 @@ public class Shooter {
     }
 
     public void update() {
-        if (collisionDetected()) {
-
-        }
-        else if (frameCollisionDetected()) {
+        if (CollisionDetector.bubbleCollisionDetected(bubble)
+                || CollisionDetector.topFrameCollision(bubble)) {
             state = State.FREE;
             generateBubble();
-        } else if (state.equals(State.SHOOTING)) {
+        }
+        else if (CollisionDetector.sideFrameCollision(bubble)) {
+            angle = 180 - angle;
+        }
+        if (state.equals(State.SHOOTING)) {
             position.setX(position.getX() + (float) Math.cos(getAngle())*10);
             position.setY(position.getY() + (float) Math.sin(getAngle())*10);
         }
     }
 
-    private boolean frameCollisionDetected() {
-        return position.getX() < GameConstants.BIG_FRAME_X
-                || position.getX() > GameConstants.BIG_FRAME_WIDTH - GameConstants.BIG_FRAME_X
-                || position.getY() > GameConstants.FRAME_HEIGHT;
-    }
-
-    private boolean collisionDetected() {
-        List<List<Bubble>> graph = Level.getInstance().getGraph();
-
-
-
-        return false;
-    }
-
     public void moveLeft() {
         if (angle < GameConstants.MAX_ANGLE) {
-            angle++;
+            angle+=4;
         }
     }
 
     public void moveRight() {
         if (angle > GameConstants.MIN_ANGLE) {
-            angle--;
+            angle-=4;
         }
     }
 
