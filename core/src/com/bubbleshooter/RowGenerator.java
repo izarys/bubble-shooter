@@ -1,36 +1,42 @@
 package com.bubbleshooter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RowGenerator {
-    List<List<Bubble>> graph;
+    Map<Bubble, Set<Bubble>> graph;
     BubbleFactory bubbleFactory = new BubbleFactory();
 
-    public RowGenerator(List<List<Bubble>> graph) {
+    public RowGenerator(Map<Bubble, Set<Bubble>> graph) {
         this.graph = graph;
     }
 
     public void generate() {
-        List<Bubble> newRow = new ArrayList<>();
-        moveRows();
+        updateHeights();
+        // TODO check if not game over
         for (int i = 0; i < 21; i++) {
             Position position = new Position(GameConstants.BIG_FRAME_X + i * GameConstants.BUBBLE_SIZE,
                     GameConstants.FRAME_HEIGHT + GameConstants.FRAME_Y - GameConstants.BUBBLE_SIZE);
-            newRow.add(bubbleFactory.getBubble(position));
+            graph.put(bubbleFactory.getBubble(position), new HashSet<Bubble>());
         }
-        graph.add(newRow);
+        updateNeighbours();
     }
 
-    private void moveRows() {
-        // TODO check if not game over
+    private void updateHeights() {
+        for (Bubble bubble : graph.keySet()) {
+            bubble.move(0, -GameConstants.BUBBLE_SIZE);
+        }
+    }
 
-        for (List<Bubble> row : graph) {
-            for (Bubble bubble : row) {
-                bubble.move(0, -GameConstants.BUBBLE_SIZE);
+    private void updateNeighbours() {
+        for (Map.Entry<Bubble, Set<Bubble>> entry : graph.entrySet()) {
+            Bubble bubble = entry.getKey();
+            Set<Bubble> neighbours = entry.getValue();
+            for (Bubble potentialNeighbour : graph.keySet()) {
+                if (!bubble.equals(potentialNeighbour)
+                        && GameConstants.COLLISION(bubble, potentialNeighbour)) {
+                    neighbours.add(potentialNeighbour);
+                }
             }
         }
-
-
     }
 }

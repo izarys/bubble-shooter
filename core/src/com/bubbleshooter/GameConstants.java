@@ -78,4 +78,15 @@ public class GameConstants {
     public static final float MIN_ANGLE = 1;
     public static final float MAX_ANGLE = 179;
 
+    // collision
+    public static boolean COLLISION(Bubble bubble1, Bubble bubble2) {
+        float x1 = bubble1.getPosition().getX();
+        float y1 = bubble1.getPosition().getY();
+        float x2 = bubble2.getPosition().getX();
+        float y2 = bubble2.getPosition().getY();
+        int d = GameConstants.BUBBLE_SIZE;
+
+        return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) <= d * d;
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.bubbleshooter;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Level {
     private static final Level instance = new Level();
@@ -36,7 +38,7 @@ public class Level {
         return shooter;
     }
 
-    public List<List<Bubble>> getGraph() {
+    public Map<Bubble, Set<Bubble>> getGraph() {
         return graph.getGraph();
     }
 }

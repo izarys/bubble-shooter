@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class GameScreenState extends ScreenSetup implements ScreenState {
     GameScreen gameScreen;
@@ -79,12 +81,10 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
         font.draw(batch, "next:", GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - 2 * GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
         font.draw(batch, "exit (ESC)", GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - 12 * GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
 
-        List<List<Bubble>> graph = Level.getInstance().getGraph();
+        Map<Bubble, Set<Bubble>> graph = Level.getInstance().getGraph();
 
-        for (List<Bubble> row : graph) {
-            for (Bubble bubble : row) {
-                batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()), bubble.getPosition().getX(), bubble.getPosition().getY());
-            }
+        for (Bubble bubble : graph.keySet()) {
+            batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()), bubble.getPosition().getX(), bubble.getPosition().getY());
         }
 
         Bubble[] nextBubbles = Level.getInstance().getQueue().getQueue();

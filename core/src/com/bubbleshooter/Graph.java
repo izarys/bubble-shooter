@@ -1,14 +1,15 @@
 package com.bubbleshooter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Graph {
-    List<List<Bubble>> graph;
+    Map<Bubble, Set<Bubble>> graph;
     RowGenerator rowGenerator;
 
     public Graph() {
-        graph = new ArrayList<>();
+        graph = new HashMap<>();
         rowGenerator = new RowGenerator(graph);
 
         for (int i = 0; i < 4; i++) {
@@ -16,7 +17,7 @@ public class Graph {
         }
     }
 
-    public List<List<Bubble>> getGraph() {
+    public Map<Bubble, Set<Bubble>> getGraph() {
         return graph;
     }
 }

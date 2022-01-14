@@ -32,7 +32,7 @@ public class Shooter {
     }
 
     public void update() {
-        if (CollisionDetector.bubbleCollisionDetected(bubble)
+        if (CollisionDetector.bubblesOverlapping(bubble)
                 || CollisionDetector.topFrameCollision(bubble)) {
             state = State.FREE;
             generateBubble();
