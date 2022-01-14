@@ -1,22 +1,27 @@
 package com.bubbleshooter;
 
 public class BubbleBomb implements Bubble {
-
     private Position position;
+    private final Color color;
+
+    public BubbleBomb(Position position) {
+        this.position = position;
+        color = Color.BOMB;
+    }
 
     @Override
-    public void destroy() {
-
+    public boolean shouldFire(Bubble bubble) {
+        return true;
     }
 
     @Override
     public Color getColor() {
-        return null;
+        return color;
     }
 
     @Override
     public Position getPosition() {
-        return null;
+        return position;
     }
 
     @Override
@@ -26,6 +31,7 @@ public class BubbleBomb implements Bubble {
 
     @Override
     public void move(float deltaX, float deltaY) {
-
+        position.setX(position.getX() + deltaX);
+        position.setY(position.getY() + deltaY);
     }
 }

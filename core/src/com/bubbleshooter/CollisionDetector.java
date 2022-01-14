@@ -19,7 +19,7 @@ public class CollisionDetector {
         Map<Bubble, Set<Bubble>> graph = Level.getInstance().getGraph();
         for (Bubble bubble : graph.keySet()) {
             if (GameConstants.COLLISION(shootingBubble, bubble)) {
-                if (shootingBubble.getColor().equals(bubble.getColor())) {
+                if (shootingBubble.shouldFire(bubble)) {
                     Breaker.getInstance().update(bubble);
                 } else {
                     graph.put(shootingBubble, new HashSet<Bubble>());

@@ -18,6 +18,8 @@ public class GameConstants {
     public static final Texture BUBBLE_BLUE = new Texture("bubble_blue.png");
     public static final Texture BUBBLE_YELLOW = new Texture("bubble_yellow.png");
     public static final Texture BUBBLE_GREEN = new Texture("bubble_green.png");
+    public static final Texture BUBBLE_BOMB = new Texture("bubble_bomb.png");
+    public static final Texture BUBBLE_MULTICOLOR = new Texture("bubble_multicolor.png");
 
     // buttons variables
     public static final int MAIN_MENU_BUTTON_COUNT = 3;
@@ -67,11 +69,14 @@ public class GameConstants {
             put(Color.BLUE, BUBBLE_BLUE);
             put(Color.YELLOW, BUBBLE_YELLOW);
             put(Color.GREEN, BUBBLE_GREEN);
+            put(Color.BOMB, BUBBLE_BOMB);
+            put(Color.MULTICOLOR, BUBBLE_MULTICOLOR);
         }
     };
     public static final int NORMAL_COLORS = 4;
     public static final int BUBBLE_SIZE = 64;
     public static final int POINTS_FOR_ONE_BUBBLE = 1;
+    public static final int QUEUE_BUBBLE_DIST = 80;
 
     // shooter
     public static final int AIM_HELPER_RADIUS = 256;

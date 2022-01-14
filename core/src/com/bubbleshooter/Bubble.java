@@ -1,7 +1,7 @@
 package com.bubbleshooter;
 
 public interface Bubble {
-    void destroy();
+    boolean shouldFire(Bubble bubble);
     Color getColor();
     Position getPosition();
     void setPosition(Position position);

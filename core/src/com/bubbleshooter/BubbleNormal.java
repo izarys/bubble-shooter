@@ -10,8 +10,8 @@ public class BubbleNormal implements Bubble {
     }
 
     @Override
-    public void destroy() {
-
+    public boolean shouldFire(Bubble bubble) {
+        return bubble.getColor().equals(color) || bubble.getColor().equals(Color.BOMB);
     }
 
     @Override

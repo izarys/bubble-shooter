@@ -12,7 +12,6 @@ public class RowGenerator {
 
     public void generate() {
         updateHeights();
-        // TODO check if not game over
         for (int i = 0; i < 21; i++) {
             Position position = new Position(GameConstants.BIG_FRAME_X + i * GameConstants.BUBBLE_SIZE,
                     GameConstants.FRAME_HEIGHT + GameConstants.FRAME_Y - GameConstants.BUBBLE_SIZE);

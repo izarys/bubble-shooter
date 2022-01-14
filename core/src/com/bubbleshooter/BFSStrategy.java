@@ -13,10 +13,14 @@ public class BFSStrategy implements SearchStrategy {
 
         while (!queue.isEmpty()) {
             Bubble bubble = queue.poll();
-            for (Bubble neighbour : graph.get(bubble)) {
-                if (neighbour.getColor().equals(bubble.getColor())
-                        && !result.contains(neighbour)) {
-                    queue.add(neighbour);
+            if (bubble.getColor().equals(Color.BOMB)) {System.out.println("here");
+                result.addAll(graph.get(bubble));
+            }
+            else {
+                for (Bubble neighbour : graph.get(bubble)) {
+                    if (bubble.shouldFire(neighbour) && !result.contains(neighbour)) {
+                        queue.add(neighbour);
+                    }
                 }
             }
             result.add(bubble);
