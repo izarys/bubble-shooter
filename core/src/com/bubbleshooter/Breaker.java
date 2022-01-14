@@ -3,6 +3,7 @@ package com.bubbleshooter;
 import java.util.*;
 
 public class Breaker {
+    private final SearchStrategy searchStrategy = new BFSStrategy();
     private static final Breaker instance = new Breaker();
     Map<Bubble, Set<Bubble>> graph = Level.getInstance().getGraph();
 
@@ -18,20 +19,7 @@ public class Breaker {
     }
 
     private void remove(Bubble start) {
-        Set<Bubble> toBeRemoved = new HashSet<>();
-        Queue<Bubble> queue = new LinkedList<>();
-        queue.add(start);
-
-        while (!queue.isEmpty()) {
-            Bubble bubble = queue.poll();
-            for (Bubble neighbour : graph.get(bubble)) {
-                if (neighbour.getColor().equals(bubble.getColor())
-                        && !toBeRemoved.contains(neighbour)) {
-                    queue.add(neighbour);
-                }
-            }
-            toBeRemoved.add(bubble);
-        }
+        Set<Bubble> toBeRemoved = searchStrategy.search(start);
 
         for (Bubble bubble : toBeRemoved) {
             for (Bubble neighbour : graph.get(bubble)) {
