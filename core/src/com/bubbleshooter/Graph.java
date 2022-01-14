@@ -13,11 +13,15 @@ public class Graph {
         rowGenerator = new RowGenerator(graph);
 
         for (int i = 0; i < 4; i++) {
-            rowGenerator.generate();
+            addRow();
         }
     }
 
     public Map<Bubble, Set<Bubble>> getGraph() {
         return graph;
+    }
+
+    public void addRow() {
+        rowGenerator.generate();
     }
 }

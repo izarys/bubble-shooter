@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -96,6 +95,10 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
         Bubble shooterBubble = Level.getInstance().getShooter().getBubble();
         batch.draw(GameConstants.BUBBLE_TEXTURE.get(shooterBubble.getColor()), shooterBubble.getPosition().getX(), shooterBubble.getPosition().getY());
 
+        if (Level.getInstance().gameOver()) {
+            font.draw(batch, GameConstants.GAME_OVER, (GameConstants.BIG_FRAME_WIDTH - GameConstants.BIG_FRAME_X) / 2f,
+                    GameConstants.SCREEN_HEIGHT / 2f);
+        }
 
 
         batch.end();

@@ -7,7 +7,6 @@ public class Breaker {
     Map<Bubble, Set<Bubble>> graph = Level.getInstance().getGraph();
 
     private Breaker() {
-
     }
 
     public static Breaker getInstance() {
@@ -39,6 +38,7 @@ public class Breaker {
                 graph.get(neighbour).remove(bubble);
             }
             graph.remove(bubble);
+            Player.getInstance().increaseScore(GameConstants.POINTS_FOR_ONE_BUBBLE);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.bubbleshooter;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,5 +39,19 @@ public class Level {
 
     public Map<Bubble, Set<Bubble>> getGraph() {
         return graph.getGraph();
+    }
+
+    public void addRow() {
+        graph.addRow();
+    }
+
+    public boolean gameOver() {
+        for (Bubble bubble : graph.getGraph().keySet()) {
+            if (bubble.getPosition().getY() + GameConstants.BUBBLE_SIZE / 2f <= GameConstants.FRAME_Y) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

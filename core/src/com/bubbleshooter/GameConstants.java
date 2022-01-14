@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
-import java.nio.CharBuffer;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GameConstants {
@@ -35,6 +33,7 @@ public class GameConstants {
     public static final String ARROWS = "arrows";
     public static final String WASD = "wasd";
     public static final String BACK = "back";
+    public static final String GAME_OVER = "game over";
     public static final String[] MAIN_MENU_BUTTONS = {NEW_GAME, SETTINGS, EXIT};
     public static final String[][] SETTINGS_BUTTONS = {{SOUND, ON, OR, OFF}, {CONTROLS, ARROWS, OR, WASD}, {BACK}};
     public static final int MAIN_MENU_HEIGHT_OFFSET = 128;
@@ -72,11 +71,13 @@ public class GameConstants {
     };
     public static final int NORMAL_COLORS = 4;
     public static final int BUBBLE_SIZE = 64;
+    public static final int POINTS_FOR_ONE_BUBBLE = 1;
 
     // shooter
     public static final int AIM_HELPER_RADIUS = 256;
     public static final float MIN_ANGLE = 1;
     public static final float MAX_ANGLE = 179;
+    public static final int UNTIL_NEXT_ROW = 3;
 
     // collision
     public static boolean COLLISION(Bubble bubble1, Bubble bubble2) {
