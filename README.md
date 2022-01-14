@@ -12,5 +12,5 @@ Some of these patterns are not necessary, as the game is unlikely to be develope
 5. Observer - CollisionDetector, Breaker, notifies the class responsible for breaking bubbles about a collision between bubbles on the same color.
 6. Strategy - Breaker, SearchStrategy, BFSStrategy, enables selecting an algorithm for searching the bubble graph
 7. Command - allow switching between left/right arrows and A/D keys to move the shooter aim
-8. TODO
+8. Iterator - iterate through menu buttons while taking care of the logic of changing font colors
 9. TODO extra

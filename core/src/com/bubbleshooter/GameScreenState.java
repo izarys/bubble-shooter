@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
 
 public class GameScreenState extends ScreenSetup implements ScreenState {
     GameScreen gameScreen;
@@ -20,6 +21,7 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
     private Command turnRightArrow;
     private Command turnLeftA;
     private Command turnRightD;
+    private float textTimer;
 
     GameScreenState(GameScreen gameScreen) {
         nullCommand = new NullCommand();
@@ -29,6 +31,7 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
         turnRightD = nullCommand;
         this.gameScreen = gameScreen;
         setupFont();
+        textTimer = 0;
     }
 
     @Override
@@ -101,9 +104,6 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
 
     @Override
     public void render(float delta) {
-
-        GameLogic.getInstance().getShooter().update();
-
         batch.begin();
         batch.draw(GameConstants.BACKGROUND, 0,0);
 
@@ -130,8 +130,9 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
         if (GameLogic.getInstance().gameOver()) {
             font.draw(batch, GameConstants.GAME_OVER, (GameConstants.BIG_FRAME_WIDTH - GameConstants.BIG_FRAME_X) / 2f,
                     GameConstants.SCREEN_HEIGHT / 2f);
+        } else {
+            GameLogic.getInstance().update();
         }
-
 
         batch.end();
 

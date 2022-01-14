@@ -5,7 +5,6 @@ import java.util.*;
 public class Breaker {
     private final SearchStrategy searchStrategy = new BFSStrategy();
     private static final Breaker instance = new Breaker();
-    Map<Bubble, Set<Bubble>> graph = GameLogic.getInstance().getGraph();
 
     private Breaker() {
     }
@@ -19,6 +18,7 @@ public class Breaker {
     }
 
     private void remove(Bubble start) {
+        Map<Bubble, Set<Bubble>> graph = GameLogic.getInstance().getGraph();
         Set<Bubble> toBeRemoved = searchStrategy.search(start);
 
         for (Bubble bubble : toBeRemoved) {

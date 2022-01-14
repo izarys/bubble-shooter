@@ -9,12 +9,11 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class MenuScreenState extends ScreenSetup implements ScreenState {
-
     Stage stage;
     GameScreen gameScreen;
     BitmapFont font;
-    Color[] buttonsColors;
-    int buttonsIdx;
+    private MenuButton[] buttons;
+    private MenuButtonsIterator iterator;
 
     MenuScreenState(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
@@ -38,21 +37,19 @@ public class MenuScreenState extends ScreenSetup implements ScreenState {
 
     @Override
     public void setupButtons() {
-        buttonsColors = new Color[]{Color.WHITE, Color.BLACK, Color.BLACK};
-        buttonsIdx = 0;
-    }
-
-    private void moveButtonIndex(int idx) {
-        buttonsColors[buttonsIdx] = Color.BLACK;
-        buttonsIdx = idx;
-        buttonsColors[buttonsIdx] = Color.WHITE;
+        buttons = new MenuButton[]{
+                new MenuButton(Color.WHITE, GameConstants.MAIN_MENU_BUTTONS[0]),
+                new MenuButton(Color.BLACK, GameConstants.MAIN_MENU_BUTTONS[1]),
+                new MenuButton(Color.BLACK, GameConstants.MAIN_MENU_BUTTONS[2])
+        };
+        iterator = new MenuButtonsIterator(buttons);
     }
 
     @Override
     public void actOnKeyUp(int keycode) {
         switch (keycode) {
             case Input.Keys.ENTER: {
-                String currentButton = GameConstants.MAIN_MENU_BUTTONS[buttonsIdx];
+                String currentButton = iterator.curr().getText();
                 switch (currentButton) {
                     case GameConstants.NEW_GAME:
                         gameScreen.setScreenState(gameScreen.getGameScreenState());
@@ -67,11 +64,11 @@ public class MenuScreenState extends ScreenSetup implements ScreenState {
                 break;
             }
             case Input.Keys.DOWN: {
-                moveButtonIndex((buttonsIdx + 1) % GameConstants.MAIN_MENU_BUTTON_COUNT);
+                iterator.next();
                 break;
             }
             case Input.Keys.UP: {
-                moveButtonIndex((buttonsIdx + (GameConstants.MAIN_MENU_BUTTON_COUNT - 1)) % GameConstants.MAIN_MENU_BUTTON_COUNT);
+                iterator.prev();
                 break;
             }
         }
@@ -89,8 +86,8 @@ public class MenuScreenState extends ScreenSetup implements ScreenState {
         batch.begin();
         batch.draw(GameConstants.BACKGROUND, 0,0);
         for (int i = 0; i < GameConstants.MAIN_MENU_BUTTON_COUNT; i++) {
-            font.setColor(buttonsColors[i]);
-            GlyphLayout layout = new GlyphLayout(font, GameConstants.MAIN_MENU_BUTTONS[i]);
+            font.setColor(buttons[i].getTextColor());
+            GlyphLayout layout = new GlyphLayout(font, buttons[i].getText());
             float x = (GameConstants.SCREEN_WIDTH - layout.width) / 2;
             float y = GameConstants.BUTTONS_HEIGHT - GameConstants.MAIN_MENU_HEIGHT_OFFSET * i;
             font.draw(batch, layout, x, y);

@@ -9,7 +9,7 @@ public class Shooter {
     private int angle;
     private Bubble bubble;
     private State state;
-    private Position position = new Position(GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f - GameConstants.BUBBLE_SIZE / 2f, GameConstants.FRAME_Y);;
+    private Position position = new Position(GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f - GameConstants.BUBBLE_SIZE / 2f, GameConstants.FRAME_Y);
 
     public Shooter() {
         untilNextRow = GameConstants.UNTIL_NEXT_ROW;
@@ -48,8 +48,8 @@ public class Shooter {
             angle = 180 - angle;
         }
         if (state.equals(State.SHOOTING)) {
-            position.setX(position.getX() + (float) Math.cos(getAngle())*25);
-            position.setY(position.getY() + (float) Math.sin(getAngle())*25);
+            position.setX(position.getX() + (float) Math.cos(getAngle()) * 50);
+            position.setY(position.getY() + (float) Math.sin(getAngle()) * 50);
         }
     }
 

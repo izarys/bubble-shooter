@@ -6,15 +6,17 @@ import java.util.Set;
 public class GameLogic {
     private static final GameLogic instance = new GameLogic();
     private int level;
-    private final Graph graph;
+    private Graph graph;
     private final NextQueue queue;
     private final Shooter shooter;
+    private boolean showLevelCount;
 
     private GameLogic() {
         graph = new Graph();
         queue = new NextQueue();
         shooter = new Shooter();
         level = 1;
+        showLevelCount = true;
     }
 
     public static GameLogic getInstance() {
@@ -29,10 +31,6 @@ public class GameLogic {
         return level;
     }
 
-    public void increaseLevel() {
-        level++;
-    }
-
     public Shooter getShooter() {
         return shooter;
     }
@@ -45,9 +43,18 @@ public class GameLogic {
         graph.addRow();
     }
 
+    public void update() {
+        if (graph.getGraph().isEmpty()) {
+            level++;
+            graph = new Graph();
+            showLevelCount = true;
+        }
+        shooter.update();
+    }
+
     public boolean gameOver() {
         for (Bubble bubble : graph.getGraph().keySet()) {
-            if (bubble.getPosition().getY() + GameConstants.BUBBLE_SIZE / 2f <= GameConstants.FRAME_Y) {
+            if (bubble.getPosition().getY() + GameConstants.BUBBLE_SIZE / 2f <= GameConstants.FRAME_Y + GameConstants.BUBBLE_SIZE) {
                 return true;
             }
         }
