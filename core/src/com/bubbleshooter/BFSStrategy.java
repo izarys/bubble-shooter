@@ -5,7 +5,7 @@ import java.util.*;
 public class BFSStrategy implements SearchStrategy {
     @Override
     public Set<Bubble> search(Bubble start) {
-        Map<Bubble, Set<Bubble>> graph = Level.getInstance().getGraph();
+        Map<Bubble, Set<Bubble>> graph = GameLogic.getInstance().getGraph();
         Set<Bubble> result = new HashSet<>();
 
         Queue<Bubble> queue = new LinkedList<>();
@@ -13,7 +13,7 @@ public class BFSStrategy implements SearchStrategy {
 
         while (!queue.isEmpty()) {
             Bubble bubble = queue.poll();
-            if (bubble.getColor().equals(Color.BOMB)) {System.out.println("here");
+            if (bubble.getColor().equals(Color.BOMB)) {
                 result.addAll(graph.get(bubble));
             }
             else {

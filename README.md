@@ -11,6 +11,6 @@ Some of these patterns are not necessary, as the game is unlikely to be develope
 4. Template Method - ScreenSetup, defines the skeleton of setting up any of the three available screens.
 5. Observer - CollisionDetector, Breaker, notifies the class responsible for breaking bubbles about a collision between bubbles on the same color.
 6. Strategy - Breaker, SearchStrategy, BFSStrategy, enables selecting an algorithm for searching the bubble graph
-7. TODO
+7. Command - allow switching between left/right arrows and A/D keys to move the shooter aim
 8. TODO
 9. TODO extra

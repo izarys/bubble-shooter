@@ -3,21 +3,21 @@ package com.bubbleshooter;
 import java.util.Map;
 import java.util.Set;
 
-public class Level {
-    private static final Level instance = new Level();
+public class GameLogic {
+    private static final GameLogic instance = new GameLogic();
     private int level;
     private final Graph graph;
     private final NextQueue queue;
     private final Shooter shooter;
 
-    private Level() {
+    private GameLogic() {
         graph = new Graph();
         queue = new NextQueue();
         shooter = new Shooter();
         level = 1;
     }
 
-    public static Level getInstance() {
+    public static GameLogic getInstance() {
         return instance;
     }
 

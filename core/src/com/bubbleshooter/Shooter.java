@@ -21,7 +21,7 @@ public class Shooter {
     private void generateBubble() {
         angle = 90;
         position = new Position(GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f - GameConstants.BUBBLE_SIZE / 2f, GameConstants.FRAME_Y);
-        bubble = Level.getInstance().getQueue().getFront();
+        bubble = GameLogic.getInstance().getQueue().getFront();
         bubble.setPosition(position);
     }
 
@@ -33,7 +33,7 @@ public class Shooter {
         state = State.SHOOTING;
         untilNextRow--;
         if (untilNextRow == 0) {
-            Level.getInstance().addRow();
+            GameLogic.getInstance().addRow();
             untilNextRow = GameConstants.UNTIL_NEXT_ROW;
         }
     }

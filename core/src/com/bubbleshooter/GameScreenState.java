@@ -15,8 +15,18 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
     GameScreen gameScreen;
     BitmapFont font;
     Stage stage;
+    private final Command nullCommand;
+    private Command turnLeftArrow;
+    private Command turnRightArrow;
+    private Command turnLeftA;
+    private Command turnRightD;
 
     GameScreenState(GameScreen gameScreen) {
+        nullCommand = new NullCommand();
+        turnLeftArrow = new TurnLeftCommand();
+        turnRightArrow = new TurnRightCommand();
+        turnLeftA = nullCommand;
+        turnRightD = nullCommand;
         this.gameScreen = gameScreen;
         setupFont();
     }
@@ -36,21 +46,43 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
 
     }
 
+    public void setArrowsCommand() {
+        turnLeftArrow = new TurnLeftCommand();
+        turnRightArrow = new TurnRightCommand();
+        turnLeftA = nullCommand;
+        turnRightD = nullCommand;
+    }
+
+    public void setADCommand() {
+        turnLeftArrow = nullCommand;
+        turnRightArrow = nullCommand;
+        turnLeftA = new TurnLeftCommand();
+        turnRightD = new TurnRightCommand();
+    }
+
     @Override
     public void actOnKeyUp(int keycode) {
         switch (keycode) {
             case Input.Keys.ESCAPE:
                 Gdx.app.exit();
             case Input.Keys.LEFT: {
-                Level.getInstance().getShooter().moveLeft();
+                turnLeftArrow.execute();
                 break;
             }
             case Input.Keys.RIGHT: {
-                Level.getInstance().getShooter().moveRight();
+                turnRightArrow.execute();
+                break;
+            }
+            case Input.Keys.A: {
+                turnLeftA.execute();
+                break;
+            }
+            case Input.Keys.D: {
+                turnRightD.execute();
                 break;
             }
             case Input.Keys.SPACE: {
-                Level.getInstance().getShooter().shoot();
+                GameLogic.getInstance().getShooter().shoot();
                 break;
             }
         }
@@ -70,32 +102,32 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
     @Override
     public void render(float delta) {
 
-        Level.getInstance().getShooter().update();
+        GameLogic.getInstance().getShooter().update();
 
         batch.begin();
         batch.draw(GameConstants.BACKGROUND, 0,0);
 
-        font.draw(batch, "level: " + Level.getInstance().getLevel(), GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT);
+        font.draw(batch, "level: " + GameLogic.getInstance().getLevel(), GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT);
         font.draw(batch, "score: " + Player.getInstance().getScore(), GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
         font.draw(batch, "next:", GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - 2 * GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
         font.draw(batch, "exit (ESC)", GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - 12 * GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
 
-        Map<Bubble, Set<Bubble>> graph = Level.getInstance().getGraph();
+        Map<Bubble, Set<Bubble>> graph = GameLogic.getInstance().getGraph();
 
         for (Bubble bubble : graph.keySet()) {
             batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()), bubble.getPosition().getX(), bubble.getPosition().getY());
         }
 
-        Bubble[] nextBubbles = Level.getInstance().getQueue().getQueue();
+        Bubble[] nextBubbles = GameLogic.getInstance().getQueue().getQueue();
 
         for (Bubble bubble : nextBubbles) {
             batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()), bubble.getPosition().getX(), bubble.getPosition().getY());
         }
 
-        Bubble shooterBubble = Level.getInstance().getShooter().getBubble();
+        Bubble shooterBubble = GameLogic.getInstance().getShooter().getBubble();
         batch.draw(GameConstants.BUBBLE_TEXTURE.get(shooterBubble.getColor()), shooterBubble.getPosition().getX(), shooterBubble.getPosition().getY());
 
-        if (Level.getInstance().gameOver()) {
+        if (GameLogic.getInstance().gameOver()) {
             font.draw(batch, GameConstants.GAME_OVER, (GameConstants.BIG_FRAME_WIDTH - GameConstants.BIG_FRAME_X) / 2f,
                     GameConstants.SCREEN_HEIGHT / 2f);
         }
@@ -104,7 +136,7 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
         batch.end();
 
         float r = GameConstants.AIM_HELPER_RADIUS;
-        float angle = Level.getInstance().getShooter().getAngle();
+        float angle = GameLogic.getInstance().getShooter().getAngle();
         float x1 = GameConstants.BIG_FRAME_X + GameConstants.BIG_FRAME_WIDTH / 2f;
         float y1 = GameConstants.FRAME_Y + GameConstants.BUBBLE_SIZE / 2f;
         float x2 = (x1 + (float) Math.cos(angle) * r);

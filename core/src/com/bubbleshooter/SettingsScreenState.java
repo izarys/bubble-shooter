@@ -63,6 +63,12 @@ public class SettingsScreenState extends ScreenSetup implements ScreenState {
                 String currentButton = GameConstants.SETTINGS_BUTTONS[buttonsIdxUpDown][0];
                 if (GameConstants.BACK.equals(currentButton)) {
                     gameScreen.setScreenState(gameScreen.getMenuScreenState());
+                    if (buttonsColors[1][1] == Color.WHITE) {
+                        gameScreen.getGameScreenState().setArrowsCommand();
+                    }
+                    else {
+                        gameScreen.getGameScreenState().setADCommand();
+                    }
                 }
                 break;
             }

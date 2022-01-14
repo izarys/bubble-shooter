@@ -32,8 +32,8 @@ public class GameScreen {
         return settingsScreenState;
     }
 
-    public ScreenState getGameScreenState() {
-        return gameScreenState;
+    public GameScreenState getGameScreenState() {
+        return (GameScreenState) gameScreenState;
     }
 
     public void setScreenState(ScreenState screenState) {

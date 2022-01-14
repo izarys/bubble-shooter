@@ -5,7 +5,7 @@ import java.util.*;
 public class Breaker {
     private final SearchStrategy searchStrategy = new BFSStrategy();
     private static final Breaker instance = new Breaker();
-    Map<Bubble, Set<Bubble>> graph = Level.getInstance().getGraph();
+    Map<Bubble, Set<Bubble>> graph = GameLogic.getInstance().getGraph();
 
     private Breaker() {
     }

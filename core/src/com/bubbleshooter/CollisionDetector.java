@@ -16,7 +16,7 @@ public class CollisionDetector {
     }
 
     public static boolean bubblesOverlapping(Bubble shootingBubble) {
-        Map<Bubble, Set<Bubble>> graph = Level.getInstance().getGraph();
+        Map<Bubble, Set<Bubble>> graph = GameLogic.getInstance().getGraph();
         for (Bubble bubble : graph.keySet()) {
             if (GameConstants.COLLISION(shootingBubble, bubble)) {
                 if (shootingBubble.shouldFire(bubble)) {
