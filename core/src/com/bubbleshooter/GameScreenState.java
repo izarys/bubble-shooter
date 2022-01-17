@@ -10,18 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.Timer;
 
 public class GameScreenState extends ScreenSetup implements ScreenState {
-    GameScreen gameScreen;
-    BitmapFont font;
-    Stage stage;
+    private final GameScreen gameScreen;
+    private BitmapFont font;
+    private Stage stage;
     private final Command nullCommand;
     private Command turnLeftArrow;
     private Command turnRightArrow;
     private Command turnLeftA;
     private Command turnRightD;
-    private float textTimer;
 
     GameScreenState(GameScreen gameScreen) {
         nullCommand = new NullCommand();
@@ -31,7 +29,6 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
         turnRightD = nullCommand;
         this.gameScreen = gameScreen;
         setupFont();
-        textTimer = 0;
     }
 
     @Override
@@ -107,25 +104,30 @@ public class GameScreenState extends ScreenSetup implements ScreenState {
         batch.begin();
         batch.draw(GameConstants.BACKGROUND, 0,0);
 
-        font.draw(batch, "level: " + GameLogic.getInstance().getLevel(), GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT);
-        font.draw(batch, "score: " + Player.getInstance().getScore(), GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
-        font.draw(batch, "next:", GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - 2 * GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
-        font.draw(batch, "exit (ESC)", GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - 12 * GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
+        font.draw(batch, GameConstants.LEVEL + GameLogic.getInstance().getLevel(),
+                GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT);
+        font.draw(batch, GameConstants.SCORE + GameLogic.getInstance().getScore(),
+                GameConstants.SIDE_TEXT_WIDTH, GameConstants.SIDE_TEXT_HEIGHT - GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
+        font.draw(batch, GameConstants.NEXT, GameConstants.SIDE_TEXT_WIDTH,
+                GameConstants.SIDE_TEXT_HEIGHT - 2 * GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
+        font.draw(batch, GameConstants.ESC, GameConstants.SIDE_TEXT_WIDTH,
+                GameConstants.SIDE_TEXT_HEIGHT - 12 * GameConstants.SIDE_TEXT_HEIGHT_OFFSET);
 
         Map<Bubble, Set<Bubble>> graph = GameLogic.getInstance().getGraph();
 
         for (Bubble bubble : graph.keySet()) {
-            batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()), bubble.getPosition().getX(), bubble.getPosition().getY());
+            batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()),
+                    bubble.getPosition().getX(), bubble.getPosition().getY());
         }
 
-        Bubble[] nextBubbles = GameLogic.getInstance().getQueue().getQueue();
-
-        for (Bubble bubble : nextBubbles) {
-            batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()), bubble.getPosition().getX(), bubble.getPosition().getY());
+        for (Bubble bubble : GameLogic.getInstance().getQueue().getQueue()) {
+            batch.draw(GameConstants.BUBBLE_TEXTURE.get(bubble.getColor()),
+                    bubble.getPosition().getX(), bubble.getPosition().getY());
         }
 
         Bubble shooterBubble = GameLogic.getInstance().getShooter().getBubble();
-        batch.draw(GameConstants.BUBBLE_TEXTURE.get(shooterBubble.getColor()), shooterBubble.getPosition().getX(), shooterBubble.getPosition().getY());
+        batch.draw(GameConstants.BUBBLE_TEXTURE.get(shooterBubble.getColor()),
+                shooterBubble.getPosition().getX(), shooterBubble.getPosition().getY());
 
         if (GameLogic.getInstance().gameOver()) {
             font.draw(batch, GameConstants.GAME_OVER, (GameConstants.BIG_FRAME_WIDTH - GameConstants.BIG_FRAME_X) / 2f,

@@ -26,7 +26,7 @@ public class Breaker {
                 graph.get(neighbour).remove(bubble);
             }
             graph.remove(bubble);
-            Player.getInstance().increaseScore(GameConstants.POINTS_FOR_ONE_BUBBLE);
+            GameLogic.getInstance().increaseScore(GameConstants.POINTS_FOR_ONE_BUBBLE);
         }
     }
 }

@@ -9,9 +9,9 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class MenuScreenState extends ScreenSetup implements ScreenState {
-    Stage stage;
-    GameScreen gameScreen;
-    BitmapFont font;
+    private Stage stage;
+    private final GameScreen gameScreen;
+    private BitmapFont font;
     private MenuButton[] buttons;
     private MenuButtonsIterator iterator;
 

@@ -9,14 +9,14 @@ public class GameLogic {
     private Graph graph;
     private final NextQueue queue;
     private final Shooter shooter;
-    private boolean showLevelCount;
+    private int score;
 
     private GameLogic() {
         graph = new Graph();
         queue = new NextQueue();
         shooter = new Shooter();
         level = 1;
-        showLevelCount = true;
+        score = 0;
     }
 
     public static GameLogic getInstance() {
@@ -47,9 +47,16 @@ public class GameLogic {
         if (graph.getGraph().isEmpty()) {
             level++;
             graph = new Graph();
-            showLevelCount = true;
         }
         shooter.update();
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void increaseScore(int delta) {
+        score += delta;
     }
 
     public boolean gameOver() {

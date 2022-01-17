@@ -21,7 +21,7 @@ public class GameConstants {
     public static final Texture BUBBLE_BOMB = new Texture("bubble_bomb.png");
     public static final Texture BUBBLE_MULTICOLOR = new Texture("bubble_multicolor.png");
 
-    // buttons variables
+    // text variables
     public static final int MAIN_MENU_BUTTON_COUNT = 3;
     public static final int SETTINGS_BUTTON_COUNT = 3;
     public static final String NEW_GAME = "new game";
@@ -36,6 +36,10 @@ public class GameConstants {
     public static final String WASD = "wasd";
     public static final String BACK = "back";
     public static final String GAME_OVER = "game over";
+    public static final String LEVEL = "level: ";
+    public static final String SCORE = "score: ";
+    public static final String NEXT = "next: ";
+    public static final String ESC = "exit (ESC)";
     public static final String[] MAIN_MENU_BUTTONS = {NEW_GAME, SETTINGS, EXIT};
     public static final String[][] SETTINGS_BUTTONS = {{SOUND, ON, OR, OFF}, {CONTROLS, ARROWS, OR, WASD}, {BACK}};
     public static final int MAIN_MENU_HEIGHT_OFFSET = 128;
@@ -49,7 +53,7 @@ public class GameConstants {
     // frame position
     public static final int BIG_FRAME_X = 50;
     public static final int SMALL_FRAME_X = 1450;
-    public static final int BIG_FRAME_WIDTH = 1350;
+    public static final int BIG_FRAME_WIDTH = 1345;
     public static final int SMALL_FRAME_WIDTH = 300;
     public static final int FRAME_HEIGHT = 800;
     public static final int FRAME_Y = 50;
@@ -77,8 +81,12 @@ public class GameConstants {
     public static final int BUBBLE_SIZE = 64;
     public static final int POINTS_FOR_ONE_BUBBLE = 1;
     public static final int QUEUE_BUBBLE_DIST = 80;
+    public static final int BOMBS_PERCENTAGE = 3;
+    public static final int ROWS = 4;
+    public static final int BUBBLES_IN_ROW = 21;
 
     // shooter
+    public static final int INITIAL_ANGLE = 90;
     public static final int AIM_HELPER_RADIUS = 256;
     public static final float MIN_ANGLE = 1;
     public static final float MAX_ANGLE = 179;

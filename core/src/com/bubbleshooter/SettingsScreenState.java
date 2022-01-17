@@ -2,22 +2,19 @@ package com.bubbleshooter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Color;;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class SettingsScreenState extends ScreenSetup implements ScreenState {
-    GameScreen gameScreen;
-    BitmapFont font;
-    Stage stage;
+    private final GameScreen gameScreen;
+    private BitmapFont font;
+    private Stage stage;
 
-    Color[][] buttonsColors;
-    int buttonsIdxUpDown;
+    private Color[][] buttonsColors;
+    private int buttonsIdxUpDown;
 
     SettingsScreenState(GameScreen gameScreen) {
         this.gameScreen = gameScreen;

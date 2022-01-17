@@ -5,14 +5,14 @@ import java.util.Map;
 import java.util.Set;
 
 public class Graph {
-    Map<Bubble, Set<Bubble>> graph;
-    RowGenerator rowGenerator;
+    private final Map<Bubble, Set<Bubble>> graph;
+    private final RowGenerator rowGenerator;
 
     public Graph() {
         graph = new HashMap<>();
         rowGenerator = new RowGenerator(graph);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < GameConstants.ROWS; i++) {
             addRow();
         }
     }

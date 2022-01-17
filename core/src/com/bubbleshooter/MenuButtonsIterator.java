@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class MenuButtonsIterator {
     private final MenuButton[] buttons;
-    int idx;
+    private int idx;
 
     MenuButtonsIterator(MenuButton[] buttons) {
         this.buttons = buttons;

@@ -3,8 +3,8 @@ package com.bubbleshooter;
 import java.util.*;
 
 public class RowGenerator {
-    Map<Bubble, Set<Bubble>> graph;
-    BubbleFactory bubbleFactory = new BubbleFactory();
+    private final Map<Bubble, Set<Bubble>> graph;
+    private final BubbleFactory bubbleFactory = new BubbleFactory();
 
     public RowGenerator(Map<Bubble, Set<Bubble>> graph) {
         this.graph = graph;
@@ -12,7 +12,7 @@ public class RowGenerator {
 
     public void generate() {
         updateHeights();
-        for (int i = 0; i < 21; i++) {
+        for (int i = 0; i < GameConstants.BUBBLES_IN_ROW; i++) {
             Position position = new Position(GameConstants.BIG_FRAME_X + i * GameConstants.BUBBLE_SIZE,
                     GameConstants.FRAME_HEIGHT + GameConstants.FRAME_Y - GameConstants.BUBBLE_SIZE);
             graph.put(bubbleFactory.getBubble(position), new HashSet<Bubble>());
